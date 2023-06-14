@@ -1,0 +1,33 @@
+class Solution1 {
+public:
+    int missingNumber(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        for (int i = 0; i<nums.size(); i++){
+            if (nums[i]!=i) return i;
+        }
+        return nums.size();
+    }
+};
+
+class Solution2 {
+public:
+    int missingNumber(vector<int>& nums) {
+        int cnt1=0;
+        for (int i = 1; i<=nums.size(); i++) cnt1+=i;
+        int cnt2=0;
+        for (int i = 0; i<nums.size(); i++) cnt2+=nums[i];
+        return cnt1-cnt2;
+    }
+};
+
+class Solution3 {
+public:
+    int missingNumber(vector<int>& nums) {
+      int ans =0;
+      for(int i = 0; i < nums.size(); i++){
+          ans = ans^nums[i]^i;
+      } 
+      ans ^= nums.size(); 
+      return ans;
+    }
+};
