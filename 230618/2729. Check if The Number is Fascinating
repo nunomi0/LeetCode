@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isFascinating(int n) {
+
+        if (n>333) return false;
+        
+        int arr[10];
+        for (int i = 1; i<10; i++) arr[i]=0;
+
+        arr[n/100]++;
+        arr[n%100/10]++;
+        arr[n%10]++;
+
+        arr[2*n/100]++;
+        arr[2*n%100/10]++;
+        arr[2*n%10]++;
+
+        arr[3*n/100]++;
+        arr[3*n%100/10]++;
+        arr[3*n%10]++;
+
+        for (int i = 1; i<10; i++) {
+            if (arr[i]!=1) return false;
+        }
+        return true;
+
+    }
+};
