@@ -1,0 +1,36 @@
+class Solution {
+public:
+
+    vector<int> v[2010];
+    bool ans=true;
+    bool visited[2010];
+    
+    void dfs(int cur, int par, int cnt){
+
+        if (cur==par && cnt!=0) {
+            ans=false;
+            return;
+        }
+
+        if (visited[cur]) return;
+        visited[cur]=1;
+        
+        for (int i = 0; i<v[cur].size(); i++){
+            dfs(v[cur][i],par,cnt+1);
+        }
+        return;
+    }
+
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        for (int i = 0; i<prerequisites.size(); i++){
+            v[prerequisites[i][1]].push_back(prerequisites[i][0]);
+        }
+
+        for (int i = 0; i<numCourses; i++){
+            memset(visited,0,sizeof(visited));
+            dfs(i,i,0);
+        }
+        return ans;
+    }
+
+};
