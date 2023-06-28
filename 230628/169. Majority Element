@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        map<int,int>m;
+        for (int i = 0; i<nums.size(); i++){
+            if (m.count(nums[i])) m[nums[i]]++;
+            else m[nums[i]]=1;
+        }
+        int ans=m.begin()->first;
+        int cnt=m.begin()->second;
+        for (auto iter=m.begin(); iter!=m.end(); iter++){
+            if (cnt<iter->second){
+                ans=iter->first;
+                cnt=iter->second;
+            }
+        }
+        return ans;
+    }
+};
