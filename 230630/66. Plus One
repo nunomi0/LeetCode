@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        vector<int> reverse;
+        int carry=1;
+
+        for (int i = digits.size()-1; i>=0; i--){
+            if (digits[i]+carry==10){
+                reverse.push_back(0);
+                carry=1;
+            }
+            else {
+                reverse.push_back(digits[i]+carry);
+                carry=0;
+            }
+        }
+        if (carry) reverse.push_back(1);
+        
+        vector<int> ans;
+        for (int i = reverse.size()-1; i>=0; i--){
+            ans.push_back(reverse[i]);
+        }
+
+        return ans;
+    }
+};
