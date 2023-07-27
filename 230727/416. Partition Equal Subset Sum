@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int dp[210][20010];
+
+    bool recur(int cur, int cnt, vector<int> &nums){
+        if (cur<=0 || cnt<=0) return cnt==0;
+
+        if (dp[cur][cnt]!=-1) return dp[cur][cnt];
+
+        if (nums[cur-1]>cnt) return dp[cur][cnt]=recur(cur-1,cnt,nums);
+        else return dp[cur][cnt]=recur(cur-1,cnt,nums) || recur(cur-1,cnt-nums[cur-1],nums);
+    }
+
+    bool canPartition(vector<int>& nums) {
+        memset(dp,-1,sizeof(dp));
+
+        int total=0;
+        for (int i = 0; i<nums.size(); i++) total+=nums[i];
+
+        if (total%2==1) return false;
+        return recur(nums.size(),total/2,nums);
+    }
+};
+
+
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int total=0;
+        for (int i = 0; i<nums.size(); i++) total+=nums[i];
+
+        if (total%2==1) return false;
+
+        bool dp[210][20010];
+
+        for (int i = 1; i<=total; i++) dp[0][i]=false;
+        for (int i = 0; i<=nums.size(); i++) dp[i][0]=true;
+        for (int i = 1; i<=nums.size(); i++){
+            for (int j = 1; j<=total/2; j++){
+                if (nums[i-1]>j) dp[i][j]=dp[i-1][j];
+                else dp[i][j]=dp[i-1][j-nums[i-1]] || dp[i-1][j];
+            }
+        }
+        return dp[nums.size()][total/2];
+    }
+};
