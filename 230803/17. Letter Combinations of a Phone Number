@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+    vector<string> v;
+    string arr[20];
+    string res[10];
+
+    void recur(int cur, string digits){
+        if (cur==digits.length()){
+            string s="";
+            for (int i = 0; i<digits.length(); i++) s+=res[i];
+            v.push_back(s);
+            return;
+        }
+        for (int i = 0; i<arr[digits[cur]-'0'].length(); i++){
+            res[cur]=arr[digits[cur]-'0'][i];
+            recur(cur+1,digits);
+        }
+    }
+
+    vector<string> letterCombinations(string digits) {
+
+        arr[2]="abc";
+        arr[3]="def";
+        arr[4]="ghi";
+        arr[5]="jkl";
+        arr[6]="mno";
+        arr[7]="pqrs";
+        arr[8]="tuv";
+        arr[9]="wxyz";
+
+        if (digits=="") return v;
+
+        recur(0,digits);
+
+        return v;
+    }
+};
