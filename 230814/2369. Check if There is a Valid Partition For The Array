@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool validPartition(vector<int>& nums) {
+
+        int n=nums.size();
+        if (n==1) return false;
+
+        // dp[0],dp[1],dp[2]
+        vector<bool>dp={true,false,n>1&&nums[0]==nums[1]};
+
+        for (int i = 2; i<n; i++){
+            bool cur=false;
+            // 현재 2개 연속인 경우 && 이전 2개 연속인 경우
+            if (nums[i]==nums[i-1] && dp[1]) cur=true; 
+            // 현재 3개 연속인 경우 && 이전 모든 케이스가 true인 경우
+            else if (nums[i]==nums[i-1] && nums[i]==nums[i-2] && dp[0]) cur=true;
+            // 3개 오름차순인 경우 && 이전 모든 케이스가 true인 경우
+            else if (nums[i]-nums[i-1]==1 && nums[i-1]-nums[i-2]==1 && dp[0]) cur=true;
+            // 현재 정보 업로드 (dp[2]), 앞 정보 당기기
+            dp[0]=dp[1];
+            dp[1]=dp[2];
+            dp[2]=cur;
+        }
+
+        // 마지막 정보 return
+        return dp[2];
+    }
+};
